@@ -180,11 +180,11 @@ void opcontrol() {
 
 */
 void auton_1() {
-
+	// auton code here
 }
 
 void auton_init() {
-	as::add_auton(as::Auton("Skills Auto", "", auton_1));
+	as::add_auton(as::Auton("Auton 1", "Simple starter auton", auton_1));
 
 	as::init();
 }
