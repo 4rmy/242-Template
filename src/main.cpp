@@ -110,30 +110,14 @@ void auton_init();
 
 void initialize() {
 	lcd::initialize();
-    chassis.calibrate(); // calibrate sensors
+	chassis.calibrate(); // calibrate sensors
 	auton_init();
-	pros::Task as_button([&]() {
-		bool new_press = true;
-		
-		while (true) {
-			if (pros::competition::is_disabled()) {
-				if (auton_btn.get_value() == 1) {
-					if (new_press) {
-						as::increment();
-						new_press = false;
-					}
-				} else {
-					new_press = true;
-				}
-			} else {
-				break;
-			}
-			pros::delay(20);
-		}
-	});
 }
 
 void disabled() {
+	if (!as::alive) {
+	    as::init();
+	}
 }
 
 void competition_initialize() {
@@ -141,24 +125,16 @@ void competition_initialize() {
 
 void autonomous() {
 	lcd::clear();
-	pros::Task screen_task([&]() {
-	  	while (true) {
-            // print robot location to the brain screen
-            lcd::print(0, "X: " + std::to_string(chassis.getPose().x)); // x
-            lcd::print(1, "Y: " + std::to_string(chassis.getPose().y)); // y
-            lcd::print(2, "Theta: " + std::to_string(chassis.getPose().theta)); // heading
-
-			// delay to save resources
-            pros::delay(20);
-        }
-    });
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	chassis.setPose(lemlib::Pose(0, 0, 0), false);
 	as::call_selected_auton();
 }
 
 void opcontrol() {
-	lcd::clear();
+	if (screen_task.get_state() == pros::E_TASK_STATE_RUNNING)screen_task.remove();
+	if (as::alive) {
+		as::kill();
+	}
 	chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
 	while (true) {
@@ -184,7 +160,9 @@ void auton_1() {
 }
 
 void auton_init() {
-	as::add_auton(as::Auton("Auton 1", "Simple starter auton", auton_1));
+	as::c = &chassis;
+	
+	as::add_auton(as::Auton("Auton 1", auton_1));
 
 	as::init();
 }
