@@ -32,7 +32,7 @@ namespace as {
     };
     
     inline std::vector<Auton> autons = {Auton("No Auton", [](){})};
-    inline int current_auton = 1; // CHANGE TO -1 FOR MATCHES
+    inline int current_auton = -1; // CHANGE TO -1 FOR MATCHES
     inline lv_obj_t * screen = nullptr;
     inline bool alive = false;
     inline pros::Task limlib_integration([](){});
