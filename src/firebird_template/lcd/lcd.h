@@ -7,4 +7,5 @@ namespace lcd {
     bool print(std::int16_t line, std::string text);
     bool clear_line(std::int16_t line);
     bool clear();
+    bool logo();
 }

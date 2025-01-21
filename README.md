@@ -4,7 +4,6 @@ Plug in your port values and the project will do the rest.
 ## Features
 - Auton selector
 - Tracking Wheel Code
-- Pre-Tuned Controllers
 - Custom LCD (Replaces pros::lcd)
 - Autonomous Position Tracking Task
 

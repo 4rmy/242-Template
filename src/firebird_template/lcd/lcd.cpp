@@ -4,6 +4,7 @@
 #include "liblvgl/core/lv_obj_pos.h"
 #include "liblvgl/core/lv_obj_style.h"
 #include "liblvgl/lvgl.h" // IWYU pragma: keep
+#include "liblvgl/misc/lv_area.h"
 #include "liblvgl/misc/lv_color.h"
 #include "liblvgl/misc/lv_style.h"
 #include "liblvgl/widgets/lv_label.h"
@@ -31,6 +32,7 @@ bool lcd::initialize(void) {
     lv_style_init(&style);
     lv_style_set_radius(&style, 0);
     lv_style_set_text_color(&style, lv_color_white());
+    lv_style_set_text_align(&style, LV_ALIGN_CENTER);
 
     screen = lv_label_create(lv_scr_act());
     lv_obj_set_size(screen, 480, 240);
@@ -84,5 +86,3 @@ bool lcd::clear() {
 
     return true;
 }
-
-// other methods to come
