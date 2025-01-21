@@ -1,29 +1,22 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
-#include "pros/adi.hpp"
 #include "pros/imu.hpp"
 #include "pros/motor_group.hpp"
-#include "pros/optical.hpp"
-#include "pros/rotation.hpp"
 
 inline auto CCW_COUNTERCLOCKWISE = lemlib::AngularDirection::CCW_COUNTERCLOCKWISE;
 inline auto CW_CLOCKWISE = lemlib::AngularDirection::CW_CLOCKWISE;
 
 inline pros::MotorGroup left_motors({10, -8, -9}, pros::MotorGearset::blue);
 inline pros::MotorGroup right_motors({-19, 6, 5}, pros::MotorGearset::blue);
-inline pros::MotorGroup intake({20, -4}, pros::v5::MotorGears::green);
-inline pros::Motor lady_brown(-18, pros::v5::MotorGears::green);
-inline pros::Imu imu(15);
-inline pros::adi::Pneumatics clamp('a', false);
-inline pros::adi::Pneumatics doinker('b', false);
-inline pros::adi::Pneumatics rej_piston('c', false);
-inline pros::Optical color(14);
-inline pros::adi::Pneumatics intake_lift('h', false);
 
+inline pros::Imu imu(15);
+
+/*
 inline pros::Rotation vert(-17);
 inline lemlib::TrackingWheel vert_tracking(&vert, 2, 1.125, 1.0);
 inline pros::Rotation horiz(16);
 inline lemlib::TrackingWheel horiz_tracking(&horiz, 2, -2.75, 1.0);
+*/
 
 // constants
 inline float track_width = 11;
@@ -45,9 +38,9 @@ inline lemlib::Drivetrain
 // sensors controller
 inline lemlib::OdomSensors
     sensors(
-        &vert_tracking,
         nullptr,
-        &horiz_tracking,
+        nullptr,
+        nullptr,
         nullptr,
         &imu
     );
